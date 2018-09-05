@@ -1,11 +1,29 @@
 <% include partials/header %>
-<h1>This is the campgrounds page!</h1>
+<div class="container">
+    <header class="jumbotron">
+        <div class="container">
+            <h1>This is the Holy Grounds page!</h1>
+            <p>View our hand-picked holy grounds from all over Buenos Aires.</p>
+            <p>
+                <a class= "btn btn-primary btn-lg" href="/holygrounds/new">Add New Holy Ground</a>
+            </p>
+         </div>
+    </header>
 
-<% holygrounds.forEach(function(holyground) {%>
-	<div>
-		<h4><%= holyground.name %></h4>
-		<img src="<%= holyground.image %>">
-	</div>
-<% }); %>
+    <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+        <% holygrounds.forEach(function(holyground) {%>
+	    	<div class="col-md-3 col-sm-6">
+	    		<div class="thumbnail">
+		   			<img src="<%= holyground.image %>">
+		   			<div class="caption">
+		   				<h4><%= holyground.name %></h4>
+		   			</div>
+		   		</div>
+	   		</div>
+   		<% }); %>
+    </div>
+
+   
+</div>
 
 <% include partials/footer %>
