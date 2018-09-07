@@ -3,6 +3,7 @@ var express    = require("express"),
     app        =  express(),
     mongoose   = require("mongoose"),
     HolyGround = require("./models/holyground"),
+    Comment = require("./models/comment"),
     seedsDB    = require("./seeds");
 
 mongoose.connect("mongodb://localhost/holy_ground",{ useNewUrlParser: true });
@@ -24,14 +25,14 @@ app.get("/holygrounds", function (req, res) {
        if(err){
             console.log(err);
        } else {
-           res.render("index", {holygrounds: allHolyGrounds});
+           res.render("holygrounds/index", {holygrounds: allHolyGrounds});
        }
     });
 });
 
 //NEW - show form to create new campground
 app.get("/holygrounds/new", function (req, res) {
-    res.render("new.ejs");
+    res.render("holygrounds/new");
 });
 
 //CREATE - add new campground to DB
@@ -56,7 +57,42 @@ app.get("/holygrounds/:id", function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render("show", {holyground: foundHolyGround});
+            res.render("holygrounds/show", {holyground: foundHolyGround});
+        }
+    });
+});
+
+/* ===========================================
+ *          COMMENTS ROUTES
+ * ===========================================*/
+
+app.get("/holygrounds/:id/comments/new", function (req, res) {
+    HolyGround.findOne({_id: req.params.id}, function (err, holyground) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("comments/new", {holyground: holyground});
+        }
+    });
+}) ;
+
+
+//CREATE - add new campground to DB
+app.post("/holygrounds/:id/comments", function (req, res) {
+    HolyGround.findOne({_id: req.params.id}, function (err, holyground) {
+        if (err) {
+            console.log(err);
+            res.redirect("/holygrounds");
+        } else {
+            Comment.create(req.body.comment, function (err, comment) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    holyground.comments.push(comment)
+                    holyground.save();
+                    res.redirect("/holygrounds/" + holyground._id);
+                }
+            });
         }
     });
 });
