@@ -52,7 +52,7 @@ app.post("/holygrounds", function (req, res) {
 
 //SHOW - show more info about one holyground
 app.get("/holygrounds/:id", function (req, res) {
-    HolyGround.findOne({_id: req.params.id}, function (err, foundHolyGround) {
+    HolyGround.findOne({_id: req.params.id}).populate("comments").exec(function (err, foundHolyGround) {
         if (err) {
             console.log(err);
         } else {
