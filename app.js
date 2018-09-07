@@ -1,21 +1,16 @@
 var express    = require("express"),
     bodyParser = require("body-parser"),
     app        =  express(),
-    mongoose   = require("mongoose");
+    mongoose   = require("mongoose"),
+    HolyGround = require("./models/holyground"),
+    seedsDB    = require("./seeds");
 
 mongoose.connect("mongodb://localhost/holy_ground",{ useNewUrlParser: true });
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
-//SCHEMA SETUP
-var holygroundSchema = new mongoose.Schema ({
-    name: String,
-    image: String,
-    description: String
-});
-
-var HolyGround = mongoose.model("HolyGround", holygroundSchema);
+seedsDB();
 
 // "/" Landing Page
 app.get("/", function (req, res) {
