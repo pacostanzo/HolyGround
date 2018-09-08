@@ -1,16 +1,43 @@
 
 <% include ../partials/header %>
-<h1><%=holyground.name%></h1>
 
-<img src="<%= holyground.image %>">
-
-<p><%= holyground.description %></p>
-<p>
-    <a class="btn btn-success" href="/holygrounds/<%= holyground._id %>/comments/new">Add New Comment</a>
-</p>
-<% holyground.comments.forEach(function (comment) {%>
-    <p>
-        <strong><%= comment.author %></strong> - <%= comment.text %>
-    </p>
-<% })%>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<p class="Lead">HolyGround</p>
+				<div class="list-group">
+					<li class="list-group-item active">Info 1</li>
+					<li class="list-group-item">Info 2</li>
+					<li class="list-group-item">Info 3</li>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div class="thumbnail">
+					<img class="img-responsive" src="<%= holyground.image %>">
+					<div class="caption-full">
+						<h4 class="pull-right">$199/hour</h4> 
+						<h4><a><%= holyground.name %></a></h4>
+						<p><%= holyground.description %></p>
+					</div>
+				</div>
+				<div class="well">
+					<div class="text-right">
+						<a class="btn btn-success" href="/holygrounds/<%= holyground._id %>/comments/new">Add New Comment</a>
+					</div>
+					<hr>
+					<% holyground.comments.forEach(function (comment) {%>
+					<div class="row">
+						<div class="col-md-12">
+							<%= comment.author %>
+							<span class="pull-right">10 day ago</span>
+							<p>
+								<%= comment.text %>
+							</p>
+						</div>
+					</div>
+					<% })%>
+				</div>
+			</div>
+		</div>
+	</div>
 <% include ../partials/footer %>
