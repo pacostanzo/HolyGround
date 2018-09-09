@@ -1,10 +1,13 @@
-var express    = require("express"),
-    bodyParser = require("body-parser"),
-    app        =  express(),
-    mongoose   = require("mongoose"),
-    HolyGround = require("./models/holyground"),
-    Comment = require("./models/comment"),
-    seedsDB    = require("./seeds");
+var express       = require("express"),
+    bodyParser    = require("body-parser"),
+    app           =  express(),
+    mongoose      = require("mongoose"),
+    passpport     = require("passport"),
+    LocalStrategy = require("passport-local"),
+    HolyGround    = require("./models/holyground"),
+    Comment       = require("./models/comment"),
+    User          = require("./models/user"),
+    seedsDB       = require("./seeds");
 
 mongoose.connect("mongodb://localhost/holy_ground",{ useNewUrlParser: true });
 
@@ -13,6 +16,18 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
 seedsDB();
+
+// PASSPORT CONFIGURATION
+app.use(require("express-session")({
+    secret: "Barrilete cosmico de que planeta viniste!",
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passpport.initialize());
+passpport.use(new LocalStrategy(User.authenticate()));
+passpport.serializeUser(User.serializeUser());
+passpport.deserializeUser(User.deserializeUser());
 
 // "/" Landing Page
 app.get("/", function (req, res) {
@@ -95,6 +110,26 @@ app.post("/holygrounds/:id/comments", function (req, res) {
                 }
             });
         }
+    });
+});
+
+// AUTH ROUTES
+
+//show register form
+app.get("/register", function (req, res) {
+    res.render("register");
+});
+
+app.post("/register", function (req, res) {
+    var newUser = new User({username: req.body.username});
+    User.register(newUser, req.body.password, function (err, user) {
+        if(err) {
+            console.log(err);
+            return res.render("register");
+        }
+        passpport.authenticate("local")(req, res, function () {
+            res.redirect("/holygrounds")
+        });
     });
 });
 

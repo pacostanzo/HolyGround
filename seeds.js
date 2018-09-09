@@ -22,12 +22,12 @@ var data = [
 
 function seedDB(){
     //Remove all campgrounds
-    HolyGround.remove({}, function(err){
+    HolyGround.deleteMany({}, function(err){
         if(err){
             console.log(err);
         }
         console.log("removed holyground!");
-        Comment.remove({}, function(err) {
+        Comment.deleteMany({}, function(err) {
             if(err){
                 console.log(err);
             }
