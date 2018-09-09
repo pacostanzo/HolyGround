@@ -2,7 +2,7 @@ var express       = require("express"),
     bodyParser    = require("body-parser"),
     app           =  express(),
     mongoose      = require("mongoose"),
-    passpport     = require("passport"),
+    passport     = require("passport"),
     LocalStrategy = require("passport-local"),
     HolyGround    = require("./models/holyground"),
     Comment       = require("./models/comment"),
@@ -24,10 +24,17 @@ app.use(require("express-session")({
     saveUninitialized: false
 }));
 
-app.use(passpport.initialize());
-passpport.use(new LocalStrategy(User.authenticate()));
-passpport.serializeUser(User.serializeUser());
-passpport.deserializeUser(User.deserializeUser());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use(function(req, res, next){
+    res.locals.currentUser = req.user;
+    next();
+});
+
 
 // "/" Landing Page
 app.get("/", function (req, res) {
@@ -82,7 +89,7 @@ app.get("/holygrounds/:id", function (req, res) {
  *          COMMENTS ROUTES
  * ===========================================*/
 
-app.get("/holygrounds/:id/comments/new", function (req, res) {
+app.get("/holygrounds/:id/comments/new", isLoggedIn, function(req, res) {
     HolyGround.findOne({_id: req.params.id}, function (err, holyground) {
         if (err) {
             console.log(err);
@@ -94,7 +101,7 @@ app.get("/holygrounds/:id/comments/new", function (req, res) {
 
 
 //CREATE - add new campground to DB
-app.post("/holygrounds/:id/comments", function (req, res) {
+app.post("/holygrounds/:id/comments", isLoggedIn,function (req, res) {
     HolyGround.findOne({_id: req.params.id}, function (err, holyground) {
         if (err) {
             console.log(err);
@@ -137,13 +144,25 @@ app.get("/login", function (req, res) {
     res.render("login");
 });
 
-app.post("/login", passpport.authenticate("local",
+// handling login logic
+app.post("/login", passport.authenticate("local",
     {
         successRedirect: "/holygrounds",
         failureRedirect: "/login"
-    }),function (req, res) {
-    res.render("login");
+    }), function(req, res){
 });
+
+app.get("/logout", function (req, res) {
+    req.logout();
+    res.redirect("/holygrounds");
+});
+
+function isLoggedIn(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/login");
+}
 
 app.listen(3001, 'localhost', function() {
     console.log("Suelo Sagrado server has started...");
