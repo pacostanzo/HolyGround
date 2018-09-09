@@ -133,6 +133,18 @@ app.post("/register", function (req, res) {
     });
 });
 
+app.get("/login", function (req, res) {
+    res.render("login");
+});
+
+app.post("/login", passpport.authenticate("local",
+    {
+        successRedirect: "/holygrounds",
+        failureRedirect: "/login"
+    }),function (req, res) {
+    res.render("login");
+});
+
 app.listen(3001, 'localhost', function() {
     console.log("Suelo Sagrado server has started...");
 });
