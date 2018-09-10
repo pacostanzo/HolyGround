@@ -30,6 +30,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// Add current users to all the templates.
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
     next();
@@ -48,7 +49,7 @@ app.get("/holygrounds", function (req, res) {
        if(err){
             console.log(err);
        } else {
-           res.render("holygrounds/index", {holygrounds: allHolyGrounds});
+           res.render("holygrounds/index", {holygrounds: allHolyGrounds, currentUser: req.user});
        }
     });
 });
@@ -134,7 +135,7 @@ app.post("/register", function (req, res) {
             console.log(err);
             return res.render("register");
         }
-        passpport.authenticate("local")(req, res, function () {
+        passport.authenticate("local")(req, res, function () {
             res.redirect("/holygrounds")
         });
     });
