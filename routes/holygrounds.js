@@ -49,6 +49,28 @@ router.get("/:id", function (req, res) {
     });
 });
 
+// EDIT HolyGround
+router.get("/:id/edit", function (req, res) {
+   HolyGround.findOne({_id: req.params.id}, function (err, foundHolyGround) {
+       if (err) {
+           res.redirect("/holygrounds");
+       } else {
+           res.render("holygrounds/edit", {holyground: foundHolyGround});
+       }
+   });
+});
+
+//UPDATE HolyGround
+router.put("/:id", function (req, res) {
+    HolyGround.findOneAndUpdate({_id: req.params.id}, req.body.holyground, function (err, foundHolyGround) {
+        if (err) {
+            res.redirect("/holygrounds");
+        } else {
+            res.redirect('/holygrounds/' + req.params.id);
+        }
+    });
+});
+
 // Middleware todo refactor own file
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){

@@ -1,13 +1,14 @@
-var express       = require("express"),
-    bodyParser    = require("body-parser"),
-    app           =  express(),
-    mongoose      = require("mongoose"),
-    passport     = require("passport"),
-    LocalStrategy = require("passport-local"),
-    HolyGround    = require("./models/holyground"),
-    Comment       = require("./models/comment"),
-    User          = require("./models/user"),
-    seedsDB       = require("./seeds");
+var express        = require("express"),
+    bodyParser     = require("body-parser"),
+    app            =  express(),
+    mongoose       = require("mongoose"),
+    passport       = require("passport"),
+    LocalStrategy  = require("passport-local"),
+    methodOverride = require("method-override"),
+    HolyGround     = require("./models/holyground"),
+    Comment        = require("./models/comment"),
+    User           = require("./models/user"),
+    seedsDB        = require("./seeds");
 
 // Requiring routes
 var indexRoutes = require("./routes/index"),
@@ -19,6 +20,7 @@ mongoose.connect("mongodb://localhost/holy_ground",{ useNewUrlParser: true });
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
+app.use(methodOverride("_method"));
 
 //seedsDB(); //seed the database
 
