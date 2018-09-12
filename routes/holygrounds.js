@@ -71,6 +71,17 @@ router.put("/:id", function (req, res) {
     });
 });
 
+//DESTROY HolyGround
+router.delete("/:id", function (req, res) {
+    HolyGround.findOneAndDelete({_id: req.params.id}, function (err, foundHolyGround) {
+        if (err) {
+            res.redirect("/holygrounds");
+        } else {
+            res.redirect("/holygrounds");
+        }
+    });
+});
+
 // Middleware todo refactor own file
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
