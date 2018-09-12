@@ -23,40 +23,40 @@ var data = [
 function seedDB(){
     //Remove all campgrounds
     HolyGround.deleteMany({}, function(err){
-        if(err){
-            console.log(err);
-        }
-        console.log("removed holyground!");
-        Comment.deleteMany({}, function(err) {
-            if(err){
-                console.log(err);
-            }
-            console.log("removed comments!");
-            //add a few campgrounds
-            data.forEach(function(seed){
-                HolyGround.create(seed, function(err, holyground){
-                    if(err){
-                        console.log(err)
-                    } else {
-                        console.log("added a holyground");
-                        //create a comment
-                        Comment.create(
-                            {
-                                text: "This place is great, but I wish there was internet",
-                                author: "Homer"
-                            }, function(err, comment){
-                                if(err){
-                                    console.log(err);
-                                } else {
-                                    holyground.comments.push(comment);
-                                    holyground.save();
-                                    console.log("Created new comment");
-                                }
-                            });
-                    }
-                });
-            });
-        });
+        // if(err){
+        //     console.log(err);
+        // }
+        // console.log("removed holyground!");
+        // Comment.deleteMany({}, function(err) {
+        //     if(err){
+        //         console.log(err);
+        //     }
+        //     console.log("removed comments!");
+        //     //add a few campgrounds
+        //     data.forEach(function(seed){
+        //         HolyGround.create(seed, function(err, holyground){
+        //             if(err){
+        //                 console.log(err)
+        //             } else {
+        //                 console.log("added a holyground");
+        //                 //create a comment
+        //                 Comment.create(
+        //                     {
+        //                         text: "This place is great, but I wish there was internet",
+        //                         author: "Homer"
+        //                     }, function(err, comment){
+        //                         if(err){
+        //                             console.log(err);
+        //                         } else {
+        //                             holyground.comments.push(comment);
+        //                             holyground.save();
+        //                             console.log("Created new comment");
+        //                         }
+        //                     });
+        //             }
+        //         });
+        //     });
+        // });
     });
     //add a few comments
 }

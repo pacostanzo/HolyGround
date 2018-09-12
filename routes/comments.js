@@ -26,7 +26,10 @@ router.post("/", isLoggedIn,function (req, res) {
                 if (err) {
                     console.log(err);
                 } else {
-                    holyground.comments.push(comment)
+                    comment.author.id = req.user._id;
+                    comment.author.username = req.user.username;
+                    comment.save();
+                    holyground.comments.push(comment);
                     holyground.save();
                     res.redirect("/holygrounds/" + holyground._id);
                 }

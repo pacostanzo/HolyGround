@@ -7,7 +7,7 @@ var holygroundSchema = new mongoose.Schema ({
     description: String,
     comments: [
         {
-            type: mongoose.Schema.Types.ObjectId,
+                type: mongoose.Schema.Types.ObjectId,
             ref: "Comment"
         }
     ]

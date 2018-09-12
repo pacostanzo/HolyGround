@@ -28,7 +28,7 @@
 					<% holyground.comments.forEach(function (comment) {%>
 					<div class="row">
 						<div class="col-md-12">
-							<%= comment.author %>
+							<strong><%= comment.author.username %></strong>
 							<span class="pull-right">10 day ago</span>
 							<p>
 								<%= comment.text %>
