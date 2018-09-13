@@ -50,13 +50,9 @@ router.get("/:id", function (req, res) {
 });
 
 // EDIT HolyGround
-router.get("/:id/edit", function (req, res) {
-   HolyGround.findOne({_id: req.params.id}, function (err, foundHolyGround) {
-       if (err) {
-           res.redirect("/holygrounds");
-       } else {
-           res.render("holygrounds/edit", {holyground: foundHolyGround});
-       }
+router.get("/:id/edit", checkHolyGroundOwnership, function (req, res) {
+    HolyGround.findOne({_id: req.params.id}, function (err, foundHolyGround) {
+    res.render("holygrounds/edit", {holyground: foundHolyGround});
    });
 });
 
@@ -90,4 +86,22 @@ function isLoggedIn(req, res, next){
     res.redirect("/login");
 }
 
+
+function checkHolyGroundOwnership(req, res, next){
+    if(req.isAuthenticated()) {
+        HolyGround.findOne({_id: req.params.id}, function (err, foundHolyGround) {
+            if (err) {
+                res.redirect("back");
+            } else {
+                if(foundHolyGround.author.id.equals(req.user._id)) {
+                    next();
+                } else {
+                    res.redirect("back");
+                }
+            }
+        });
+    } else {
+        res.redirect("back");
+    }
+}
 module.exports = router;
