@@ -38,6 +38,27 @@ router.post("/", isLoggedIn,function (req, res) {
     });
 });
 
+
+router.get("/:comment_id/edit", function (req, res) {
+    Comment.findOne({_id: req.params.comment_id}, function (err, foundComment) {
+        if (err) {
+            res.redirect("back");
+        } else {
+            res.render("comments/edit", {holyground_id: req.params.id, comment: foundComment});
+        }
+    });
+});
+
+router.put("/:comment_id", function (req, res) {
+    Comment.findOneAndUpdate({_id: req.params.comment_id}, req.body.comment, function (err, updatedComment) {
+        if (err) {
+            res.redirect("back");
+        } else {
+            res.redirect('/holygrounds/' + req.params.id);
+        }
+    });
+});
+
 // Middleware todo refactor own file
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){

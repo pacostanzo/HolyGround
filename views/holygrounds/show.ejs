@@ -19,10 +19,12 @@
 						<h4><a><%= holyground.name %></a></h4>
 						<p><%= holyground.description %></p>
 						<p><em>Submitted By <%= holyground.author.username %> </em></p>
-						<a class="btn btn-xs btn-warning" href="/holygrounds/<%= holyground._id %>/edit">Edit</a>
-						<form id="delete-form" action="/holygrounds/<%= holyground._id %>?_method=DELETE" method="POST">
-							<button class="btn btn-xs btn-danger">Delete</button>
-						</form>
+						<% if(currentUser && holyground.author.id.equals(currentUser._id)) {%>
+							<a class="btn btn-xs btn-warning" href="/holygrounds/<%= holyground._id %>/edit">Edit</a>
+							<form id="delete-form" action="/holygrounds/<%= holyground._id %>?_method=DELETE" method="POST">
+								<button class="btn btn-xs btn-danger">Delete</button>
+							</form>
+						<% } %>
 					</div>
 				</div>
 				<div class="well">
@@ -38,6 +40,10 @@
 							<p>
 								<%= comment.text %>
 							</p>
+							<a class="btn btn-xs btn-warning"
+							   href="/holygrounds/<%= holyground._id %>/comments/<%= comment._id %>/edit ">
+							   Edit
+							</a>
 						</div>
 					</div>
 					<% })%>

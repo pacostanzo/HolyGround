@@ -57,7 +57,7 @@ router.get("/:id/edit", checkHolyGroundOwnership, function (req, res) {
 });
 
 //UPDATE HolyGround
-router.put("/:id", function (req, res) {
+router.put("/:id", checkHolyGroundOwnership, function (req, res) {
     HolyGround.findOneAndUpdate({_id: req.params.id}, req.body.holyground, function (err, foundHolyGround) {
         if (err) {
             res.redirect("/holygrounds");
@@ -68,7 +68,7 @@ router.put("/:id", function (req, res) {
 });
 
 //DESTROY HolyGround
-router.delete("/:id", function (req, res) {
+router.delete("/:id", checkHolyGroundOwnership, function (req, res) {
     HolyGround.findOneAndDelete({_id: req.params.id}, function (err, foundHolyGround) {
         if (err) {
             res.redirect("/holygrounds");
