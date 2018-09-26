@@ -39,7 +39,7 @@ router.post("/", isLoggedIn,function (req, res) {
 });
 
 
-router.get("/:comment_id/edit", function (req, res) {
+router.get("/:comment_id/edit", checkCommentOwnership, function (req, res) {
     Comment.findOne({_id: req.params.comment_id}, function (err, foundComment) {
         if (err) {
             res.redirect("back");
@@ -49,7 +49,7 @@ router.get("/:comment_id/edit", function (req, res) {
     });
 });
 
-router.put("/:comment_id", function (req, res) {
+router.put("/:comment_id", checkCommentOwnership, function (req, res) {
     Comment.findOneAndUpdate({_id: req.params.comment_id}, req.body.comment, function (err, updatedComment) {
         if (err) {
             res.redirect("back");
@@ -58,6 +58,37 @@ router.put("/:comment_id", function (req, res) {
         }
     });
 });
+
+
+//DESTROY comments
+router.delete("/:comment_id", checkCommentOwnership, function (req, res) {
+    Comment.findOneAndDelete({_id: req.params.comment_id}, function (err, deleteComment) {
+        if (err) {
+            res.redirect("back");
+        } else {
+            res.redirect("/holygrounds/"+req.params.id);
+        }
+    });
+});
+
+
+function checkCommentOwnership(req, res, next){
+    if(req.isAuthenticated()) {
+        Comment.findOne({_id: req.params.comment_id}, function (err, foundComment) {
+            if (err) {
+                res.redirect("back");
+            } else {
+                if(foundComment.author.id.equals(req.user._id)) {
+                    next();
+                } else {
+                    res.redirect("back");
+                }
+            }
+        });
+    } else {
+        res.redirect("back");
+    }
+}
 
 // Middleware todo refactor own file
 function isLoggedIn(req, res, next){
