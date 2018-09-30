@@ -42,8 +42,9 @@ router.post("/", middleware.isLoggedIn, function (req, res) {
 //SHOW - show more info about one holyground
 router.get("/:id", function (req, res) {
     HolyGround.findOne({_id: req.params.id}).populate("comments").exec(function (err, foundHolyGround) {
-        if (err) {
-            console.log(err);
+        if (err || !foundHolyGround) {
+            req.flash("error", "HolyGround not found");
+            res.redirect("back");
         } else {
             res.render("holygrounds/show", {holyground: foundHolyGround});
         }
