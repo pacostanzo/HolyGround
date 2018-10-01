@@ -9,29 +9,31 @@ router.get("/", function (req, res) {
 });
 
 
-//show register form
-router.get("/register", function (req, res) {
-    res.render("register");
+// show register form
+router.get("/register", function(req, res){
+    res.render("register", {page: 'register'});
 });
+
 
 // Create a user
 router.post("/register", function (req, res) {
     var newUser = new User({username: req.body.username});
     User.register(newUser, req.body.password, function (err, user) {
         if(err) {
-            req.flash("error",err.message);
-            return res.render("register");
+            console.log(err);
+            return res.render("register", {error: err.message});
         }
         passport.authenticate("local")(req, res, function () {
-            req.flash("success", "Welcome to HolyGround " + user.username);
+            req.flash("success",  "Successfully Signed Up! Nice to meet you " + user.username);
             res.redirect("/holygrounds")
         });
     });
 });
 
-// LogIn
-router.get("/login", function (req, res) {
-    res.render("login", {message: req.flash("error")});
+
+//show login form
+router.get("/login", function(req, res){
+    res.render("login", {page: 'login', message: req.flash("error")});
 });
 
 // handling login logic

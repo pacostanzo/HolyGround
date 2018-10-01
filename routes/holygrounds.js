@@ -10,7 +10,7 @@ router.get("/", function (req, res) {
         if(err){
             console.log(err);
         } else {
-            res.render("holygrounds/index", {holygrounds: allHolyGrounds, currentUser: req.user});
+            res.render("holygrounds/index", {holygrounds: allHolyGrounds, page: 'campgrounds'});
         }
     });
 });

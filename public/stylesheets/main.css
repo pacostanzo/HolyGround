@@ -1,3 +1,28 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+	position: relative;
+	min-height: 100%;
+}
+body {
+	/* Margin bottom by footer height */
+	margin-bottom: 60px;
+}
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	/* Set the fixed height of the footer here */
+	height: 60px;
+	background-color: #f5f5f5;
+	text-align: center;
+}
+
+.container .text-muted {
+	margin: 20px 0;
+}
+
+/* Thumbnail styles */
 .thumbnail img {
 	width: 100%;
 }
@@ -10,6 +35,13 @@
 	padding: 9px;
 }
 
-#delete-form {
-	display: inline;
+/* Holyground show page delete button */
+.delete-form {
+	display: inline-block;
+}
+
+/* Flexbox grid fix */
+.flex-wrap {
+	display:flex;
+	flex-wrap: wrap;
 }
