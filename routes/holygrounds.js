@@ -3,6 +3,33 @@ var express     = require("express"),
     HolyGround  = require("../models/holyground"),
     middleware  = require("../middleware");
 
+
+// Config Cloudinary
+
+var multer = require('multer');
+var storage = multer.diskStorage({
+    filename: function(req, file, callback) {
+        callback(null, Date.now() + file.originalname);
+    }
+});
+var imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter});
+
+var cloudinary = require('cloudinary');
+
+cloudinary.config({
+    cloud_name: 'holyground-dev',
+    api_key: '229344786956653',
+    api_secret: 'r5GYn8fNMRX8Azw0kwz1bGzqRLc'
+});
+
+
 //INDEX - show all holygrounds
 router.get("/", function (req, res) {
     //Get all holygrounds fom DB
@@ -21,22 +48,22 @@ router.get("/new", middleware.isLoggedIn, function (req, res) {
 });
 
 //CREATE - add new campground to DB
-router.post("/", middleware.isLoggedIn, function (req, res) {
-    var name  = req.body.name;
-    var price = req.body.price;
-    var image = req.body.image;
-    var description = req.body.description;
-    var author = {
-      id: req.user._id,
-      username: req.user.username
-    };
-    var newHolyGround = {name: name, price: price, image: image, description: description, author: author};
-    HolyGround.create(newHolyGround, function (err, newlyCreated) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.redirect("/holygrounds");
+router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, res) {
+    cloudinary.uploader.upload(req.file.path, function(result) {
+        // add cloudinary url for the image to the campground object under image property
+        req.body.holyground.image = result.secure_url;
+        // add author to holyground
+        req.body.holyground.author = {
+            id: req.user._id,
+            username: req.user.username
         }
+        HolyGround.create(req.body.holyground, function(err, holyground) {
+            if (err) {
+                req.flash('error', err.message);
+                return res.redirect('back');
+            }
+            res.redirect('/holygrounds/' + holyground.id);
+        });
     });
 });
 
