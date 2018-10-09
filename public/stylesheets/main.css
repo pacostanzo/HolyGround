@@ -36,7 +36,7 @@ body {
 }
 
 /* Holyground show page delete button */
-.delete-form {
+#delete-form {
 	display: inline-block;
 }
 

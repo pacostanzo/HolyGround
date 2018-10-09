@@ -49,10 +49,16 @@ router.get("/new", middleware.isLoggedIn, function (req, res) {
 
 //CREATE - add new campground to DB
 router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, res) {
-    cloudinary.uploader.upload(req.file.path, function(result) {
+    cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
+        if(err) {
+            req.flash('error', err.message);
+            return res.redirect('back');
+        }
         // add cloudinary url for the image to the campground object under image property
         req.body.holyground.image = result.secure_url;
-        // add author to holyground
+        // add image's public_id to campground object
+        req.body.holyground.imageId = result.public_id;
+        // add author to campground
         req.body.holyground.author = {
             id: req.user._id,
             username: req.user.username
@@ -87,23 +93,50 @@ router.get("/:id/edit", middleware.checkHolyGroundOwnership, function (req, res)
 });
 
 //UPDATE HolyGround
-router.put("/:id", middleware.checkHolyGroundOwnership, function (req, res) {
-    HolyGround.findOneAndUpdate({_id: req.params.id}, req.body.holyground, function (err, foundHolyGround) {
-        if (err) {
-            res.redirect("/holygrounds");
+router.put("/:id", upload.single('image'), middleware.checkHolyGroundOwnership, function(req, res){
+    HolyGround.findById(req.params.id, async function(err, holyground){
+        if(err){
+            req.flash("error", err.message);
+            res.redirect("back");
         } else {
-            res.redirect('/holygrounds/' + req.params.id);
+            if (req.file) {
+                try {
+                    await cloudinary.v2.uploader.destroy(holyground.imageId);
+                    var result = await cloudinary.v2.uploader.upload(req.file.path);
+                    holyground.imageId = result.public_id;
+                    holyground.image = result.secure_url;
+                } catch(err) {
+                    req.flash("error", err.message);
+                    return res.redirect("back");
+                }
+            }
+            holyground.name = req.body.holyground.name;
+            holyground.description = req.body.holyground.description;
+            holyground.price = req.body.holyground.price;
+            holyground.save();
+            req.flash("success","Successfully Updated!");
+            res.redirect("/holygrounds/" + holyground._id);
         }
     });
 });
 
 //DESTROY HolyGround
 router.delete("/:id", middleware.checkHolyGroundOwnership, function (req, res) {
-    HolyGround.findOneAndDelete({_id: req.params.id}, function (err, foundHolyGround) {
-        if (err) {
-            res.redirect("/holygrounds");
-        } else {
-            res.redirect("/holygrounds");
+    HolyGround.findOne({_id: req.params.id}, async function(err, holyground) {
+        if(err) {
+            req.flash("error", err.message);
+            return res.redirect("back");
+        }
+        try {
+            await cloudinary.v2.uploader.destroy(holyground.imageId);
+            holyground.remove();
+            req.flash('success', 'Holyground deleted successfully!');
+            res.redirect('/holygrounds');
+        } catch(err) {
+            if(err) {
+                req.flash("error", err.message);
+                return res.redirect("back");
+            }
         }
     });
 });
