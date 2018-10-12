@@ -1,31 +1,10 @@
-$(document).ready( function() {
-    $(document).on('change', '.btn-file :file', function() {
-        var input = $(this),
-            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-        input.trigger('fileselect', [label]);
-    });
+var loadFile = function(event) {
+    var reader = new FileReader();
+    reader.onload = function(){
+        var output = document.getElementById('image');
+        output.src = reader.result;
 
-    $('.btn-file :file').on('fileselect', function(event, label) {
-
-        var input = $(this).parents('.input-group').find(':text'),
-            log = label;
-
-        if( input.length ) {
-            input.val(log);
-        } else {
-            if( log ) alert(log);
-        }
-
-    });
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    $("#image").change(function(){
-        readURL(this);
-    });
-});
+    };
+    reader.readAsDataURL(event.target.files[0]);
+    document.getElementById("image-name").value = event.target.files[0].name;
+};

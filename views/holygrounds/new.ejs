@@ -15,7 +15,7 @@
                     <div class="input-group">
                         <span class="input-group-btn">
                             <span class="btn btn-default btn-file">
-                                Browse… <input type="file" id="image" name='image' accept="image/*" required>
+                                Browse… <input type="file" id="image" name='image' accept="image/*" onchange="loadFile(event)" required>
                             </span>
                         </span>
                         <input id="image-name" type="text" class="form-control" readonly>

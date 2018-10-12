@@ -15,10 +15,10 @@
                 <div class="input-group">
                         <span class="input-group-btn">
                             <span class="btn btn-default btn-file">
-                                Browse… <input type="file" id="image" name='image' accept="image/*" >
+                                Browse… <input type="file" id="image" name='image'  accept="image/*" onchange="loadFile(event)" required>
                             </span>
                         </span>
-                    <input type="text" class="form-control" value="<%= holyground.image %>" readonly>
+                    <input id="image-name" type="text" value="<%= holyground.image.substring(holyground.image.lastIndexOf('/')+1) %>" class="form-control" readonly>
                 </div>
             </div>
             <div class="form-group">
