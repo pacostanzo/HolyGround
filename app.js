@@ -16,7 +16,8 @@ var indexRoutes = require("./routes/index"),
     commentsRoutes = require("./routes/comments"),
     holyGroundsRoutes = require("./routes/holygrounds");
 
-mongoose.connect("mongodb://localhost/holy_ground",{ useNewUrlParser: true });
+var url = process.env.DATABASEURL || "mongodb://localhost/holy_ground";
+mongoose.connect(url,{ useNewUrlParser: true });
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
