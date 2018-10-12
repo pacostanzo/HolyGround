@@ -5,15 +5,12 @@ var express        = require("express"),
     passport       = require("passport"),
     LocalStrategy  = require("passport-local"),
     methodOverride = require("method-override"),
-    HolyGround     = require("./models/holyground"),
-    Comment        = require("./models/comment"),
     User           = require("./models/user"),
-    flash          = require("connect-flash"),
-    seedsDB        = require("./seeds");
+    flash          = require("connect-flash");
 
 // Requiring routes
-var indexRoutes = require("./routes/index"),
-    commentsRoutes = require("./routes/comments"),
+var indexRoutes       = require("./routes/index"),
+    commentsRoutes    = require("./routes/comments"),
     holyGroundsRoutes = require("./routes/holygrounds");
 
 var url = process.env.DATABASEURL || "mongodb://localhost/holy_ground";
@@ -24,8 +21,6 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 
-
-//seedsDB(); //seed the database
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
@@ -50,13 +45,13 @@ app.use(function(req, res, next){
 });
 
 
-
 app.use("/",indexRoutes);
 app.use("/holygrounds", holyGroundsRoutes);
 app.use("/holygrounds/:id/comments",commentsRoutes);
 
+//Connecting the Server
 var port = process.env.PORT || 3001;
 
 app.listen(port,function() {
-    console.log("Suelo Sagrado server has started...");
+    console.log("Suelo Sagrado server has started at PORT = " + port);
 });

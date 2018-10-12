@@ -8,12 +8,10 @@ router.get("/", function (req, res) {
     res.render("landing");
 });
 
-
 // show register form
 router.get("/register", function(req, res){
     res.render("register", {page: 'register'});
 });
-
 
 // Create a user
 router.post("/register", function (req, res) {
