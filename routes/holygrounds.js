@@ -1,12 +1,11 @@
 var express     = require("express"),
     router      = express.Router(),
     HolyGround  = require("../models/holyground"),
-    middleware  = require("../middleware");
-
+    middleware  = require("../middleware"),
+    multer      = require('multer');
+    cloudinary  = require('cloudinary');
 
 // Config Cloudinary
-
-var multer = require('multer');
 var storage = multer.diskStorage({
     filename: function(req, file, callback) {
         callback(null, Date.now() + file.originalname);
@@ -21,14 +20,15 @@ var imageFilter = function (req, file, cb) {
 };
 var upload = multer({ storage: storage, fileFilter: imageFilter});
 
-var cloudinary = require('cloudinary');
+var cloudName = process.env.CLOUDNAME || 'holyground-dev';
+var apiKey    = process.env.APIKEY    || '229344786956653';
+var apiSecret = process.env.APISECRET || 'r5GYn8fNMRX8Azw0kwz1bGzqRLc';
 
 cloudinary.config({
-    cloud_name: 'holyground-dev',
-    api_key: '229344786956653',
-    api_secret: 'r5GYn8fNMRX8Azw0kwz1bGzqRLc'
+    cloud_name: cloudName,
+    api_key: apiKey,
+    api_secret: apiSecret
 });
-
 
 //INDEX - show all holygrounds
 router.get("/", function (req, res) {
