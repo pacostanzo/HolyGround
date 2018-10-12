@@ -55,7 +55,9 @@ app.use("/",indexRoutes);
 app.use("/holygrounds", holyGroundsRoutes);
 app.use("/holygrounds/:id/comments",commentsRoutes);
 
+var port = process.env.PORT || 3001;
+var host = process.env.IP || 'localhost';
 
-app.listen(3001, 'localhost', function() {
+app.listen(port, host, function() {
     console.log("Suelo Sagrado server has started...");
 });
