@@ -4,7 +4,8 @@
   "description": "The place where cosmic kites are born",
   "main": "app.js",
   "scripts": {
-    "test": "cucumber-js"
+    "test": "cucumber-js",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
