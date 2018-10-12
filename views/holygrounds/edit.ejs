@@ -1,0 +1,34 @@
+<% include ../partials/header%>
+
+    <div class="row"></div>
+    <h1 style="text-align: center">Edit <%= holyground.name %></h1>
+    <div style="width: 30%; margin: 25px auto">
+        <form action="/holygrounds/<%= holyground._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <input class="form-control" type="text" name="holyground[name]" value="<%= holyground.name %>">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="number" name="holyground[price]" value="<%= holyground.price %>">
+            </div>
+            <div class="form-group">
+                <label>Upload Image</label>
+                <div class="input-group">
+                        <span class="input-group-btn">
+                            <span class="btn btn-default btn-file">
+                                Browse… <input type="file" id="image" name='image'  accept="image/*" onchange="loadFile(event)" required>
+                            </span>
+                        </span>
+                    <input id="image-name" type="text" value="<%= holyground.image.substring(holyground.image.lastIndexOf('/')+1) %>" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="text" name="holyground[description]" value="<%= holyground.description %>">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+            </div>
+        </form>
+        <a href="/holygrounds">Go Back</a>
+    </div>
+
+<% include ../partials/footer%>
