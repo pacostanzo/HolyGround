@@ -65,3 +65,10 @@ body {
 	cursor: inherit;
 	display: block;
 }
+
+
+/* Google Maps */
+#map {
+	height: 400px;
+	width: 100%;
+}

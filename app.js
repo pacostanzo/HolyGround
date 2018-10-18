@@ -1,3 +1,4 @@
+                     require('dotenv').config();
 var express        = require("express"),
     bodyParser     = require("body-parser"),
     app            =  express(),
@@ -28,6 +29,8 @@ app.use(require("express-session")({
     resave: false,
     saveUninitialized: false
 }));
+
+app.locals.moment = require('moment');
 
 app.use(passport.initialize());
 app.use(passport.session());
