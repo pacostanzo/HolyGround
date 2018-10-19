@@ -11,14 +11,17 @@
                 <input class="form-control" type="number" name="holyground[price]" value="<%= holyground.price %>">
             </div>
             <div class="form-group">
-                <label>Upload Image</label>
+                <label>Edit Image</label>
                 <div class="input-group">
                         <span class="input-group-btn">
                             <span class="btn btn-default btn-file">
-                                Browse… <input type="file" id="image" name='image'  accept="image/*" onchange="loadFile(event)" required>
+                                Update <input type="file" id="image" name='image' accept="image/*" onchange="loadFile(event)">
                             </span>
                         </span>
-                    <input id="image-name" type="text" value="<%= holyground.image.substring(holyground.image.lastIndexOf('/')+1) %>" class="form-control" readonly>
+                    <input id="image-name" type="text" class="form-control" readonly>
+                </div>
+                <div class="thumbnail">
+                    <img id="image-preview" class="img-responsive" src="<%= holyground.image %>">
                 </div>
             </div>
             <div class="form-group">
