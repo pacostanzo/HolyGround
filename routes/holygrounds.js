@@ -134,7 +134,7 @@ router.put("/:id", upload.single('image'), middleware.checkHolyGroundOwnership, 
                     return res.redirect("back");
                 }
             }
-            geocoder.geocode(req.body.location, function (err, data) {
+            geocoder.geocode(req.body.holyground.location, function (err, data) {
                 if (err || !data.length) {
                     req.flash('error', 'Invalid address');
                     return res.redirect('back');
