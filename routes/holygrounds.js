@@ -2,7 +2,7 @@ var express      = require("express"),
     router       = express.Router(),
     HolyGround   = require("../models/holyground"),
     middleware   = require("../middleware"),
-    multer       = require('multer');
+    multer       = require('multer'),
     cloudinary   = require('cloudinary'),
     NodeGeocoder = require('node-geocoder');
 
@@ -31,9 +31,9 @@ var imageFilter = function (req, file, cb) {
 };
 var upload = multer({ storage: storage, fileFilter: imageFilter});
 
-var cloudName = process.env.CLOUDNAME || 'holyground-dev';
-var apiKey    = process.env.APIKEY    || '229344786956653';
-var apiSecret = process.env.APISECRET || 'r5GYn8fNMRX8Azw0kwz1bGzqRLc';
+var cloudName = process.env.CLOUDNAME;
+var apiKey    = process.env.APIKEY;
+var apiSecret = process.env.APISECRET;
 
 cloudinary.config({
     cloud_name: cloudName,
@@ -85,7 +85,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
             req.body.holyground.author = {
                 id: req.user._id,
                 username: req.user.username
-            }
+            };
             HolyGround.create(req.body.holyground, function(err, holyground) {
                 if (err) {
                     req.flash('error', err.message);

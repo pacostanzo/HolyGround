@@ -14,7 +14,7 @@ var indexRoutes       = require("./routes/index"),
     commentsRoutes    = require("./routes/comments"),
     holyGroundsRoutes = require("./routes/holygrounds");
 
-var url = process.env.DATABASEURL || "mongodb://localhost/holy_ground";
+var url = process.env.DATABASEURL;
 mongoose.connect(url,{ useNewUrlParser: true });
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -53,7 +53,7 @@ app.use("/holygrounds", holyGroundsRoutes);
 app.use("/holygrounds/:id/comments",commentsRoutes);
 
 //Connecting the Server
-var port = process.env.PORT || 3001;
+var port = process.env.PORT;
 
 app.listen(port,function() {
     console.log("Suelo Sagrado server has started at PORT = " + port);
