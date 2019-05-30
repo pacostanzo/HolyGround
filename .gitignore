@@ -1,9 +1,10 @@
 # Dependency directories
 node_modules/
-
+.config/
 
 #Intellij dependencies
 .idea/
 *.iml
 *.iws
 .env
+

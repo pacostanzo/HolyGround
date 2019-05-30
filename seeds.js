@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
-var HolyGround = require("./models/holyground");
-var Comment   = require("./models/comment");
+var HolyGround = require("./src/models/holyground");
+var Comment   = require("./src/models/comment");
 
 var data = [
     {
