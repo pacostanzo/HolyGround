@@ -1,6 +1,6 @@
 var express  = require("express"),
     router   = express.Router(),
-    passport = require("passport"),
+    passport = require("passport/lib"),
     User     = require("../models/user");
 
 // "/" Landing Page
