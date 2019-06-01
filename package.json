@@ -40,8 +40,16 @@
   },
   "devDependencies": {
     "env-cmd": "^8.0.2",
+    "husky": "^2.3.0",
     "jest": "^24.8.0",
     "nodemon": "^1.19.1",
+    "prettier": "1.17.1",
+    "pretty-quick": "^1.11.0",
     "supertest": "^4.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
