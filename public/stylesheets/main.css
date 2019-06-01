@@ -72,3 +72,9 @@ body {
   height: 400px;
   width: 100%;
 }
+
+#location {
+  background-color: #fff;
+  font-family: Roboto;
+  text-overflow: ellipsis;
+}
