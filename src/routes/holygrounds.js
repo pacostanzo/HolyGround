@@ -66,7 +66,10 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function(
   req,
   res
 ) {
-  geocoder.geocode(req.body.holyground.location, function(err, data) {
+  geocoder.geocode({ address: req.body.holyground.location }, function(
+    err,
+    data
+  ) {
     if (err || !data.length) {
       req.flash("error", "Invalid address");
       return res.redirect("back");
