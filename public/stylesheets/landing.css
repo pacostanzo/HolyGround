@@ -1,82 +1,82 @@
 body {
-    background-color: #000;
+  background-color: #000;
 }
 
 #landing-header {
-    z-index: 1;
-    position: relative;
-    text-align: center;
-    padding-top: 40vh;
+  z-index: 1;
+  position: relative;
+  text-align: center;
+  padding-top: 40vh;
 }
 
 #landing-header h1 {
-    color: #fff;
+  color: #fff;
 }
 
 .slideshow {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .slideshow li {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-size: cover;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    opacity: 0;
-    z-index: 0;
-    animation: imageAnimation 50s linear infinite;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  z-index: 0;
+  animation: imageAnimation 50s linear infinite;
 }
 
 .slideshow li:nth-child(1) {
-    background-image: url(https://cdn-pro.elsalvador.com/wp-content/uploads/2017/02/12015702/1444262369313.jpg);
+  background-image: url(https://cdn-pro.elsalvador.com/wp-content/uploads/2017/02/12015702/1444262369313.jpg);
 }
 .slideshow li:nth-child(2) {
-    background-image: url(https://by3302files.storage.live.com/y4mqk10T-P4M3q0h-bguEFZ9YMd846BiVhc11OhM0xbMr5wCurJ6Emalyo5kDiyV2xDTWbU5c3F4V2tEg45EkcdUpWw2yJ7LeuTD8aSO145d913cnEEdM9_k3Qjy0ZZOAOzhP7H0t02aUhG7jrkYqc0RNF6Vs_zzeeRgQDxha583UA1AVcnNFDmTuZCZs-f-Z5rXg3Xeb3bitwFhxvWXLa_Jg/2.jpg?psid=1&width=900&height=518);
-    animation-delay: 10s;
+  background-image: url(https://by3302files.storage.live.com/y4mqk10T-P4M3q0h-bguEFZ9YMd846BiVhc11OhM0xbMr5wCurJ6Emalyo5kDiyV2xDTWbU5c3F4V2tEg45EkcdUpWw2yJ7LeuTD8aSO145d913cnEEdM9_k3Qjy0ZZOAOzhP7H0t02aUhG7jrkYqc0RNF6Vs_zzeeRgQDxha583UA1AVcnNFDmTuZCZs-f-Z5rXg3Xeb3bitwFhxvWXLa_Jg/2.jpg?psid=1&width=900&height=518);
+  animation-delay: 10s;
 }
 .slideshow li:nth-child(3) {
-    background-image: url(https://cdn-pro.elsalvador.com/wp-content/uploads/2017/02/12015718/1444262369332.jpg);
-    animation-delay: 20s;
+  background-image: url(https://cdn-pro.elsalvador.com/wp-content/uploads/2017/02/12015718/1444262369332.jpg);
+  animation-delay: 20s;
 }
 .slideshow li:nth-child(4) {
-    background-image: url(https://by3302files.storage.live.com/y4m8X7NKzMMEjktUJR_2kUFj_Mm8u0XvTALnYo6SH_hvvYtar9TScme4YwT6Mn0Z_bmaOWB9DrsCGfFEOnTFslutRyDP00D6iXUN634b5PrcM4iDpVEGVb1QZYLn1WFT7K7e1-IUJ-JIn0eOP8MPheRJ9ggkxl-cGKSnLmH4iMwIS9EmUyEJj9duGJjoVwnwAhJtmwfEelNYeTe_IITkxMPNg/4.jpg?psid=1&width=630&height=354);
-    animation-delay: 30s;
+  background-image: url(https://by3302files.storage.live.com/y4m8X7NKzMMEjktUJR_2kUFj_Mm8u0XvTALnYo6SH_hvvYtar9TScme4YwT6Mn0Z_bmaOWB9DrsCGfFEOnTFslutRyDP00D6iXUN634b5PrcM4iDpVEGVb1QZYLn1WFT7K7e1-IUJ-JIn0eOP8MPheRJ9ggkxl-cGKSnLmH4iMwIS9EmUyEJj9duGJjoVwnwAhJtmwfEelNYeTe_IITkxMPNg/4.jpg?psid=1&width=630&height=354);
+  animation-delay: 30s;
 }
 .slideshow li:nth-child(5) {
-    background-image: url(https://cdn-pro.elsalvador.com/wp-content/uploads/2017/02/12015707/1444262342907.jpg);
-    animation-delay: 40s;
+  background-image: url(https://cdn-pro.elsalvador.com/wp-content/uploads/2017/02/12015707/1444262342907.jpg);
+  animation-delay: 40s;
 }
 
 @keyframes imageAnimation {
-    0% {
-        opacity: 0;
-        animation-timing-function: ease-in;
-    }
-    10% {
-        opacity: 1;
-        animation-timing-function: ease-out;
-    }
-    20% {
-        opacity: 1
-    }
-    30% {
-        opacity: 0
-    }
+  0% {
+    opacity: 0;
+    animation-timing-function: ease-in;
+  }
+  10% {
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  20% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0;
+  }
 }
 
 /* Older browser support - .no-cssanimations class added by modernizr */
 .no-cssanimations .slideshow li {
-    opacity: 1;
+  opacity: 1;
 }

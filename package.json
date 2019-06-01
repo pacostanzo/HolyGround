@@ -7,8 +7,7 @@
     "testDev": "env-cmd ./config/test.env jest --watch --runInBand",
     "start": "node src/index.js",
     "dev": "env-cmd ./config/dev.env nodemon src/index.js",
-    "test": "jest",
-    "pre-commit": "pretty-quick --staged"
+    "test": "jest"
   },
   "jest": {
     "testEnvironment": "node"
@@ -47,5 +46,10 @@
     "prettier": "1.17.1",
     "pretty-quick": "^1.11.0",
     "supertest": "^4.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
