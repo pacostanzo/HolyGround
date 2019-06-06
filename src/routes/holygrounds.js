@@ -161,7 +161,7 @@ router.put(
           holyground.location = data[0].formattedAddress;
           holyground.name = req.body.holyground.name;
           holyground.description = req.body.holyground.description;
-          holyground.price = req.body.holyground.price;
+          holyground.capacity = req.body.holyground.capacity;
           holyground.save();
           req.flash("success", "Successfully Updated!");
           res.redirect("/holygrounds/" + holyground._id);
