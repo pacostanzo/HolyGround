@@ -3,7 +3,7 @@ var mongoose = require("mongoose");
 //SCHEMA SETUP
 var holygroundSchema = new mongoose.Schema({
   name: String,
-  price: String,
+  capacity: String,
   image: String,
   imageId: String,
   description: String,
