@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+  app:
+    container_name: express-mongo
+    restart: always
+    build:
+      context: ./infra
+      dockerfile: Dockerfile
+    ports:
+      - '80:3000'
+    volumes:
+      - .:/usr/app
+    links:
+      - mongo
+    environment:
+      - DATABASEURL=mongodb://mongo:27017/myapp
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - '27017:27017'
+
+volumes:
+  mongo:
