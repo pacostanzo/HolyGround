@@ -1,55 +1,31 @@
 {
-  "name": "holy_ground",
+  "name": "HolyGround",
   "version": "1.0.0",
-  "description": "The place where cosmic kites are born",
-  "main": "src/index.js",
-  "scripts": {
-    "testDev": "env-cmd ./config/test.env jest --watch --runInBand",
-    "start": "node src/index.js",
-    "dev": "env-cmd ./config/dev.env nodemon src/index.js",
-    "test": "jest"
-  },
-  "jest": {
-    "testEnvironment": "node"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/costanzopa/HolyGround.git"
-  },
-  "author": "Pablo Costanzo",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/costanzopa/HolyGround/issues"
-  },
-  "homepage": "https://github.com/costanzopa/HolyGround#readme",
+  "main": "index.js",
+  "repository": "git@github.com:costanzopa/HolyGround.git",
+  "author": "Pablo Costanzo <costanzopa@gmail.com>",
+  "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "cloudinary": "^1.11.0",
+    "@mapbox/mapbox-sdk": "^0.13.2",
+    "body-parser": "^1.19.0",
+    "cloudinary": "^1.27.1",
     "connect-flash": "^0.1.1",
-    "ejs": "^2.6.1",
-    "express": "^4.16.3",
-    "express-session": "^1.15.6",
+    "connect-mongo": "3",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
+    "ejs-mate": "^3.0.0",
+    "express": "^4.17.1",
+    "express-mongo-sanitize": "^2.1.0",
+    "express-session": "^1.17.2",
+    "helmet": "^4.6.0",
+    "joi": "^17.4.2",
     "method-override": "^3.0.0",
-    "moment": "^2.22.2",
-    "mongoose": ">=5.7.5",
-    "multer": "^1.4.0",
-    "node-geocoder": "^3.22.0",
-    "passport": "^0.4.0",
+    "mongoose": "^6.0.12",
+    "multer": "^1.4.3",
+    "multer-storage-cloudinary": "^4.0.0",
+    "passport": "^0.5.0",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^5.0.1"
-  },
-  "devDependencies": {
-    "env-cmd": "^8.0.2",
-    "husky": "^2.3.0",
-    "jest": "^24.8.0",
-    "nodemon": "^1.19.1",
-    "prettier": "1.17.1",
-    "pretty-quick": "^1.11.0",
-    "supertest": "^4.0.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
+    "passport-local-mongoose": "^6.1.0",
+    "sanitize-html": "^2.5.3"
   }
 }
