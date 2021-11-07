@@ -2,7 +2,7 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
+
 jobs:
   build:
     docker:
@@ -36,12 +36,12 @@ jobs:
       # run tests!
       - run: npm test
 
+version: 2.1
 workflows:
-  version: 2
   build_and_test:
     jobs:
       - build
-        filters:  # using regex filters requires the entire branch to match
-          branches:
-            only:  # only branches matching the below regex filters will run
-              - develop
+          filters:  # using regex filters requires the entire branch to match
+            branches:
+              only:  # only branches matching the below regex filters will run
+                - develop
