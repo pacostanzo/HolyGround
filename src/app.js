@@ -87,6 +87,7 @@ const scriptSrcUrls = [
   'https://stackpath.bootstrapcdn.com',
   'https://api.tiles.mapbox.com',
   'https://api.mapbox.com',
+  'https://docs.mapbox.com',
   'https://kit.fontawesome.com',
   'https://cdnjs.cloudflare.com',
   'https://cdn.jsdelivr.net',
@@ -102,6 +103,7 @@ const styleSrcUrls = [
 const connectSrcUrls = [
   'https://api.mapbox.com',
   'https://*.tiles.mapbox.com',
+  'https://docs.mapbox.com',
   'https://events.mapbox.com',
 ];
 const fontSrcUrls = [];

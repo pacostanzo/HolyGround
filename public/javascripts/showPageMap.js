@@ -2,7 +2,7 @@ mapboxgl.accessToken = mapToken;
 currentGeometry = JSON.parse(geometry);
 const map = new mapboxgl.Map({
   container: 'map',
-  style: 'mapbox://styles/mapbox/light-v10',
+  style: 'mapbox://styles/mapbox/streets-v10',
   center: currentGeometry.coordinates,
   zoom: 10,
 });
