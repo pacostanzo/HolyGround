@@ -35,3 +35,13 @@ jobs:
 
       # run tests!
       - run: npm test
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+        filters:  # using regex filters requires the entire branch to match
+          branches:
+            only:  # only branches matching the below regex filters will run
+              - develop

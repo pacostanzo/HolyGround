@@ -1,30 +1,44 @@
-<% include ../partials/header %>
+<% layout('layouts/boilerplate')%>
+    <div id="cluster-map"></div>
+    <div class="container">
+        <h1>All Holygrounds</h1>
 
-        <header class="jumbotron">
-            <div class="container">
-                <h1>This is the Holy Grounds page!</h1>
-                <p>View our hand-picked holy grounds from all over the World.</p>
-                <p>
-                    <a class= "btn btn-primary btn-lg" href="/holygrounds/new">Add New Holy Ground</a>
-                </p>
-             </div>
-        </header>
+        <% for (let holyground of holygrounds){%>
+            <div class="card mb-3">
+                <div class="row">
+                    <div class="col-md-4">
+                        <%if(holyground.images.length) {%>
+                            <img class="img-fluid" alt="" src="<%=holyground.images[0].url%>">
+                            <% }else {%>
+                                <img class="img-fluid" alt=""
+                                    src="https://res.cloudinary.com/douqbebwk/image/upload/v1600103881/HolyGround/lz8jjv2gyynjil7lswf4.png">
+                                <% } %>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= holyground.title %>
+                            </h5>
+                            <p class="card-text">
+                                <%= holyground.description %>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <%= holyground.location%>
+                                </small>
+                            </p>
+                            <a class="btn btn-primary" href="/holygrounds/<%=holyground._id%>">View
+                                <%=holyground.title%>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }%>
+    </div>
+    <script>
+        const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+        const holygrounds = { features: <% - JSON.stringify(holygrounds) %>}
+    </script>
 
-
-        <div class="row text-center" style="display:flex; flex-wrap: wrap;">
-            <% holygrounds.forEach(function(holyground) {%>
-    	    	<div class="col-md-3 col-sm-6">
-    	    		<div class="thumbnail">
-    		   			<img src="<%= holyground.image %>">
-    		   			<div class="caption">
-    		   				<h4><%= holyground.name %></h4>
-    		   			</div>
-                        <p>
-                            <a href="/holygrounds/<%= holyground._id%>" class="btn btn-primary">More Info</a>
-                        </p>
-    		   		</div>
-    	   		</div>
-       		<% }); %>
-        </div>
-
-<% include ../partials/footer %>
+    <script src="/javascripts/clusterMap.js"></script>
