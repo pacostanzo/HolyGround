@@ -13,4 +13,4 @@ RUN yarn global add nodemon --prefix /usr/local
 RUN export PATH="$(yarn global bin):$PATH"
 
 
-CMD [ "nodemon", "src/index.js" ]
+CMD [ "nodemon","-r", "dotenv/config" ,"src/index.js" ]
