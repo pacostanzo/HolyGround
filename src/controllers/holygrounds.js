@@ -11,7 +11,11 @@ module.exports.index = async (req, res) => {
     featuresArray.push({
       type: 'Feature',
       geometry: holyground.geometry,
-      properties: { museum_count: holyground.title },
+      properties: {
+        title: holyground.title,
+        location: holyground.location,
+        popUpMarkup: `<h5>${holyground.title}</h5><p>${holyground.description}</p>`,
+      },
     });
   }
   const features = { features: featuresArray };
