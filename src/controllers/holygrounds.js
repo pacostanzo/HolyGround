@@ -5,16 +5,17 @@ const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const { cloudinary } = require('../utils/cloudinary');
 
 module.exports.index = async (req, res) => {
-  const holygrounds = await HolyGround.find({})
-    .populate({
-      path: 'reviews',
-      populate: {
-        path: 'author',
-      },
-    })
-    .populate('author')
-    .populate('geometry');
-  res.render('holygrounds/index', { holygrounds });
+  const holygrounds = await HolyGround.find({});
+  const featuresArray = [];
+  for (let holyground of holygrounds) {
+    featuresArray.push({
+      type: 'Feature',
+      geometry: holyground.geometry,
+      properties: { museum_count: holyground.title },
+    });
+  }
+  const features = { features: featuresArray };
+  res.render('holygrounds/index', { holygrounds, features });
 };
 
 module.exports.renderNewForm = (req, res) => {
@@ -42,15 +43,12 @@ module.exports.createHolyground = async (req, res, next) => {
 };
 
 module.exports.showHolyground = async (req, res) => {
-  const holyground = await HolyGround.findById(req.params.id)
-    .populate({
-      path: 'reviews',
-      populate: {
-        path: 'author',
-      },
-    })
-    .populate('author')
-    .populate('geometry');
+  const holyground = await HolyGround.findById(req.params.id).populate({
+    path: 'author',
+    strictPopulate: false,
+  });
+  await holyground.populate({ path: 'reviews', populate: 'author' });
+
   if (!holyground) {
     req.flash('error', 'Cannot find that holyground!');
     return res.redirect('/holygrounds');
