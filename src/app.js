@@ -106,6 +106,7 @@ const connectSrcUrls = [
   'https://*.tiles.mapbox.com',
   'https://docs.mapbox.com',
   'https://events.mapbox.com',
+  'https://i.guim.co.uk',
 ];
 const fontSrcUrls = [];
 app.use(
